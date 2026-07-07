@@ -9,27 +9,11 @@ A static phone-friendly workout app for the 17 August holiday goal. It includes:
 - Water, food, protein, workout completion, weight, and waist tracking.
 - A post-holiday four-week repeat cycle.
 
-## Upload to GitHub Pages
-
-1. Create a new GitHub repository.
-2. Upload everything inside this folder to the repository root:
-   - `index.html`
-   - `styles.css`
-   - `app.js`
-   - `manifest.json`
-   - `service-worker.js`
-   - `assets/icon.svg`
-3. In GitHub, open `Settings`.
-4. Open `Pages`.
-5. Under `Build and deployment`, choose `Deploy from a branch`.
-6. Select the `main` branch and `/root`, then save.
-7. Open the Pages URL GitHub gives you. It will look like:
-   `https://YOUR-USERNAME.github.io/YOUR-REPO-NAME/`
-
 ## Add It To Your Phone
 
 - iPhone Safari: open the site, tap Share, then `Add to Home Screen`.
 - Android Chrome: open the site, tap the menu, then `Add to Home screen` or `Install app`.
+- site link, https://360kaylin.github.io/workout-app/
 
 ## Notes
 
