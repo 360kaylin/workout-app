@@ -1,0 +1,17 @@
+{
+  "name": "Holiday Fit Tracker",
+  "short_name": "Holiday Fit",
+  "description": "A home workout, food, water, and progress tracker for an August holiday goal.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f6f2ea",
+  "theme_color": "#111111",
+  "icons": [
+    {
+      "src": "./assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

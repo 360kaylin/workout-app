@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#111111">
+    <meta name="description" content="A six week home workout, food, water, and progress tracker for an August holiday goal.">
+    <title>Holiday Fit Tracker</title>
+    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" href="./assets/icon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Holiday Fit</p>
+          <h1 id="screenTitle">Today</h1>
+        </div>
+        <div class="top-actions" aria-label="Quick stats">
+          <span id="topWeek" class="top-pill">Week 1</span>
+          <span id="topCountdown" class="top-pill accent">41 days</span>
+        </div>
+      </header>
+
+      <main>
+        <section id="todayView" class="view active" data-panel="today">
+          <section class="hero-panel">
+            <div class="hero-copy">
+              <p id="phasePill" class="phase-pill">Holiday push</p>
+              <h2 id="todayTitle">Full Body Strength A</h2>
+              <p id="todaySubtitle">Controlled reps, short rests, full body pressure.</p>
+              <div class="stat-grid">
+                <div>
+                  <strong id="daysLeft">41</strong>
+                  <span>days to holiday</span>
+                </div>
+                <div>
+                  <strong id="sessionLength">60</strong>
+                  <span>minute target</span>
+                </div>
+                <div>
+                  <strong id="streakCount">0</strong>
+                  <span>day streak</span>
+                </div>
+              </div>
+            </div>
+            <div class="motion-figure" aria-hidden="true">
+              <div class="figure-head"></div>
+              <div class="figure-body"></div>
+              <div class="figure-arm left"></div>
+              <div class="figure-arm right"></div>
+              <div class="figure-leg left"></div>
+              <div class="figure-leg right"></div>
+              <div class="pulse-ring"></div>
+            </div>
+          </section>
+
+          <section class="timer-panel">
+            <div class="timer-copy">
+              <p id="timerBlock" class="eyebrow">Ready</p>
+              <h2 id="timerMove">Start full workout timer</h2>
+              <p id="timerNext">Warm-up first, then the app will move through the session.</p>
+            </div>
+            <div class="timer-face" aria-live="polite">
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                <circle class="timer-track" cx="60" cy="60" r="52"></circle>
+                <circle id="timerRing" class="timer-ring" cx="60" cy="60" r="52"></circle>
+              </svg>
+              <span id="timerTime">00:00</span>
+            </div>
+            <div class="timer-controls" aria-label="Workout timer controls">
+              <button id="startPauseBtn" class="primary-btn">Start</button>
+              <button id="skipBtn" class="icon-btn" aria-label="Skip current timer step">Skip</button>
+              <button id="resetTimerBtn" class="icon-btn" aria-label="Reset timer">Reset</button>
+            </div>
+          </section>
+
+          <section class="status-strip">
+            <div>
+              <span class="status-label">Today</span>
+              <strong id="todayStatus">Not complete</strong>
+            </div>
+            <button id="completeWorkoutBtn" class="text-btn">Mark complete</button>
+          </section>
+
+          <section class="section-head">
+            <div>
+              <p class="eyebrow">Workout</p>
+              <h2 id="workoutFocus">Full body</h2>
+            </div>
+            <button id="toggleAllDetails" class="text-btn">Details</button>
+          </section>
+          <div id="todayBlocks" class="block-list"></div>
+
+          <section class="next-panel">
+            <p class="eyebrow">Next up</p>
+            <h2 id="nextWorkoutTitle">Legs + Core HIIT</h2>
+            <p id="nextWorkoutMeta">Tomorrow</p>
+          </section>
+        </section>
+
+        <section id="planView" class="view" data-panel="plan">
+          <section class="section-head">
+            <div>
+              <p class="eyebrow">Six week push</p>
+              <h2>Progression</h2>
+            </div>
+          </section>
+          <div id="progressionList" class="progression-list"></div>
+
+          <section class="section-head compact">
+            <div>
+              <p class="eyebrow">Current week</p>
+              <h2 id="planWeekTitle">Week 1 schedule</h2>
+            </div>
+          </section>
+          <div id="weeklyPlan" class="weekly-plan"></div>
+
+          <section class="plain-panel">
+            <p class="eyebrow">After 17 August</p>
+            <h2>Keep building</h2>
+            <p>Repeat the six-day rhythm in four-week waves: build for three weeks, then make week four a cleaner, slightly easier deload. Keep protein high, keep steps up, and log weight or waist once each week.</p>
+          </section>
+        </section>
+
+        <section id="trackView" class="view" data-panel="track">
+          <section class="section-head">
+            <div>
+              <p class="eyebrow">Hydration</p>
+              <h2>Water</h2>
+            </div>
+            <span id="waterTotal" class="top-pill">0 ml</span>
+          </section>
+          <section class="tracker-panel">
+            <div class="meter">
+              <span id="waterMeter"></span>
+            </div>
+            <div class="tracker-actions">
+              <button class="icon-btn" data-water="-250" aria-label="Remove 250 ml">-250</button>
+              <button class="primary-btn" data-water="250">+250 ml</button>
+              <button class="primary-btn alt" data-water="500">+500 ml</button>
+            </div>
+            <p id="waterHint" class="muted">Target: 2500 ml today.</p>
+          </section>
+
+          <section class="section-head compact">
+            <div>
+              <p class="eyebrow">Progress</p>
+              <h2>Measurements</h2>
+            </div>
+          </section>
+          <form id="measurementForm" class="form-panel">
+            <label>
+              Weight kg
+              <input id="weightInput" type="number" inputmode="decimal" step="0.1" min="20" placeholder="63.8">
+            </label>
+            <label>
+              Waist cm
+              <input id="waistInput" type="number" inputmode="decimal" step="0.1" min="30" placeholder="Optional">
+            </label>
+            <label class="wide">
+              Note
+              <input id="measureNote" type="text" maxlength="80" placeholder="Energy, sleep, photos, fit of clothes">
+            </label>
+            <button class="primary-btn wide" type="submit">Save check-in</button>
+          </form>
+          <div id="progressStats" class="mini-grid"></div>
+          <div id="measurementList" class="entry-list"></div>
+
+          <section class="tracker-panel danger-zone">
+            <p class="eyebrow">Data</p>
+            <h2>Local storage</h2>
+            <p class="muted">Your tracker is saved in this browser on this device.</p>
+            <button id="resetDataBtn" class="text-btn danger">Reset app data</button>
+          </section>
+        </section>
+
+        <section id="foodView" class="view" data-panel="food">
+          <section class="section-head">
+            <div>
+              <p class="eyebrow">Nutrition</p>
+              <h2>Food tracker</h2>
+            </div>
+            <span id="proteinTotal" class="top-pill">0 g</span>
+          </section>
+          <section class="tracker-panel">
+            <div class="meter protein">
+              <span id="proteinMeter"></span>
+            </div>
+            <p id="proteinHint" class="muted">Target: 102 g protein today.</p>
+          </section>
+
+          <form id="foodForm" class="form-panel">
+            <label>
+              Meal
+              <select id="mealType">
+                <option>Breakfast</option>
+                <option>Lunch</option>
+                <option>Dinner</option>
+                <option>Snack</option>
+              </select>
+            </label>
+            <label class="wide">
+              Food
+              <input id="foodName" type="text" maxlength="80" placeholder="Chicken rice bowl">
+            </label>
+            <label>
+              Protein g
+              <input id="proteinInput" type="number" inputmode="numeric" min="0" max="200" placeholder="35">
+            </label>
+            <label>
+              Calories
+              <input id="calorieInput" type="number" inputmode="numeric" min="0" max="3000" placeholder="Optional">
+            </label>
+            <button class="primary-btn wide" type="submit">Add food</button>
+          </form>
+
+          <div class="quick-list" aria-label="Quick add meals">
+            <button class="quick-btn" data-quick="eggs">Eggs + toast</button>
+            <button class="quick-btn" data-quick="yoghurt">Greek yoghurt</button>
+            <button class="quick-btn" data-quick="chicken">Chicken bowl</button>
+            <button class="quick-btn" data-quick="tuna">Tuna potato</button>
+            <button class="quick-btn" data-quick="lentils">Lentil curry</button>
+          </div>
+
+          <div id="foodList" class="entry-list"></div>
+
+          <section class="plain-panel">
+            <p class="eyebrow">Diet focus</p>
+            <h2>Lean, not crash diet</h2>
+            <ul class="check-list">
+              <li>Protein at every meal: chicken, fish, eggs, Greek yoghurt, tofu, beans, lentils, lean meat, or protein milk.</li>
+              <li>Carbs around training: oats, rice, potatoes, pasta, wraps, fruit, or wholegrain bread.</li>
+              <li>Vegetables or fruit daily, aiming for at least five portions across the day.</li>
+              <li>Keep the deficit small: fewer sugary drinks, alcohol, big snack portions, and takeaway extras.</li>
+              <li>Abs come from core training plus lower overall body fat. You cannot choose fat loss from only the stomach.</li>
+            </ul>
+          </section>
+        </section>
+
+        <section id="learnView" class="view" data-panel="learn">
+          <section class="plain-panel">
+            <p class="eyebrow">Safety</p>
+            <h2>Train hard, recover hard</h2>
+            <p>Warm up before every session. Stop for sharp pain, dizziness, chest pain, or anything that feels wrong. If you are under 18, pregnant, injured, or have a medical condition, avoid aggressive dieting and get personal guidance from a qualified professional.</p>
+          </section>
+          <section class="plain-panel">
+            <p class="eyebrow">Targets</p>
+            <h2>Your numbers</h2>
+            <div class="mini-grid">
+              <div><strong>63.8 kg</strong><span>starting weight</span></div>
+              <div><strong>90-115 g</strong><span>daily protein range</span></div>
+              <div><strong>2500 ml</strong><span>water target</span></div>
+              <div><strong>5-6</strong><span>training days</span></div>
+            </div>
+          </section>
+          <section class="plain-panel">
+            <p class="eyebrow">Form rules</p>
+            <h2>Make 9 lb feel heavy</h2>
+            <ul class="check-list">
+              <li>Use slow lowering, pauses, and single-leg work before chasing more reps.</li>
+              <li>Finish sets with one or two reps still clean. Do not let form collapse for extra numbers.</li>
+              <li>For arms, squeeze the top of curls and triceps extensions for one full second.</li>
+              <li>For legs, keep the working foot rooted and control the bottom position.</li>
+              <li>For abs, exhale hard and keep the lower back controlled instead of rushing.</li>
+            </ul>
+          </section>
+          <section class="plain-panel">
+            <p class="eyebrow">References</p>
+            <h2>Guidance used</h2>
+            <p class="source-links">
+              <a href="https://www.cdc.gov/physical-activity-basics/guidelines/adults.html">CDC activity guidelines</a>
+              <a href="https://www.nhs.uk/live-well/eat-well/food-guidelines-and-food-labels/the-eatwell-guide/">NHS Eatwell Guide</a>
+              <a href="https://www.nhs.uk/live-well/eat-well/food-types/water-drinks-nutrition/">NHS hydration</a>
+            </p>
+          </section>
+        </section>
+      </main>
+
+      <nav class="tabbar" aria-label="Main sections">
+        <button class="tab active" data-view="today" aria-current="page"><span>T</span>Today</button>
+        <button class="tab" data-view="plan"><span>P</span>Plan</button>
+        <button class="tab" data-view="track"><span>W</span>Water</button>
+        <button class="tab" data-view="food"><span>F</span>Food</button>
+        <button class="tab" data-view="learn"><span>L</span>Learn</button>
+      </nav>
+    </div>
+
+    <div id="exerciseModal" class="modal" hidden>
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <button id="closeModal" class="modal-close" aria-label="Close exercise details">Close</button>
+        <p id="modalMuscle" class="eyebrow">Exercise</p>
+        <h2 id="modalTitle">Exercise</h2>
+        <p id="modalHow"></p>
+        <div class="modal-grid">
+          <div>
+            <strong>Cues</strong>
+            <ul id="modalCues"></ul>
+          </div>
+          <div>
+            <strong>Adjust</strong>
+            <p id="modalAdjust"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast" class="toast" aria-live="polite"></div>
+    <script src="./app.js" defer></script>
+  </body>
+</html>
